@@ -2,46 +2,22 @@ import { SafeAreaView, View } from 'react-native';
 import { Text } from '../../components/atoms';
 import { CurrentWeatherList } from '../../components/organism';
 import dayjs from 'dayjs';
-import { useSelector } from 'react-redux';
-
-const cities = [
-  {
-    cityName: 'London',
-    currentDate: dayjs().format('dddd DD, MMMM'),
-    currentTime: dayjs().format('H.mm a'),
-    weather: {
-      main: 'Clouds',
-      icon: '03d',
-    },
-    temp: '18°',
-  },
-  {
-    cityName: 'Turin',
-    currentDate: dayjs().format('dddd DD, MMMM'),
-    currentTime: dayjs().format('H.mm a'),
-    weather: {
-      main: 'Sunny',
-      icon: '03d',
-    },
-    temp: '22°',
-  },
-  {
-    cityName: 'Rome',
-    currentDate: dayjs().format('dddd DD, MMMM'),
-    currentTime: dayjs().format('H.mm a'),
-    weather: {
-      main: 'Rainy',
-      icon: '03d',
-    },
-    temp: '22°',
-  },
-];
+import { useSelector, useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { fetchCitiesForecast } from '../../store/forecastSlice';
 
 const Home = () => {
-  const { selectedCities } = useSelector(state => state.ui);
+  const dispatch = useDispatch();
+  const { currentWeatherList } = useSelector((state) => state.forecasts);
+
+  useEffect(() => {
+    dispatch(fetchCitiesForecast());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <SafeAreaView>
-      <CurrentWeatherList cities={cities} />
+      <CurrentWeatherList items={currentWeatherList} />
     </SafeAreaView>
   );
 };

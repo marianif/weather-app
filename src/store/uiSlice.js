@@ -1,16 +1,18 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { colors, gradients } from '../theme';
 
 export const uiSlice = createSlice({
   name: 'ui',
   initialState: {
-    user: 'Federica',
-    detailsBg: [],
-    selectedCities: ['Turin', 'London', 'Rome'],
+    detailsBg: null,
   },
-  reducers: {},
+  reducers: {
+    setDetailsTheme: (state, { payload }) => {
+      state.detailsBg = gradients?.[payload] || gradients.default;
+    },
+  },
 });
 
-// Action creators are generated for each case reducer function
-export const {} = uiSlice.actions;
+export const { setDetailsTheme } = uiSlice.actions;
 
 export default uiSlice.reducer;

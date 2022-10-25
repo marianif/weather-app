@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     left: '5%',
     right: '5%',
-    bottom: 15,
+    bottom: 5,
     width: '90%',
     alignSelf: 'center',
     justifyContent: 'center',

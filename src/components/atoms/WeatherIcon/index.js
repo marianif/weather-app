@@ -1,23 +1,24 @@
 import { View, Image } from 'react-native';
 import React from 'react';
 import styled from 'styled-components/native';
+import { WEATHER_ICON_BASE_URL } from '@env';
 
-const URL = 'http://openweathermap.org/img/wn/10d@2x.png';
+const StyledContainer = styled.View`
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+`;
 
-const WeatherIcon = () => {
+const WeatherIcon = ({ icon }) => {
   return (
-    <View
-      style={{
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        height: '100%',
-      }}>
+    <StyledContainer>
       <Image
-        source={{ uri: URL }}
+        source={{ uri: `${WEATHER_ICON_BASE_URL}/${icon}.png` }}
         style={{ width: '100%', height: '100%', resizeMode: 'contain' }}
       />
-    </View>
+    </StyledContainer>
   );
 };
 

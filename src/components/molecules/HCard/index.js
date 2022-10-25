@@ -2,10 +2,10 @@ import React from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 import styled from 'styled-components/native';
 import { Text, WeatherIcon } from '../../atoms';
-import { OPENWEATHER_API_KEY } from '@env';
-import { useEffect } from 'react';
+import { gradients } from '../../../theme';
+import dayjs from 'dayjs';
 
-const StyledContainer = styled.Pressable`
+const StyledView = styled.Pressable`
   display: flex;
   width: 100%;
   aspect-ratio: 2.8;
@@ -23,48 +23,34 @@ const StyledCol = styled.View`
 `;
 
 const HCard = ({ item, onPress }) => {
-  const getWeather = async () => {
-    try {
-      const res = await fetch(
-        `https://api.openweathermap.org/data/2.5/weather?q=turin&units=metric&appid=${OPENWEATHER_API_KEY}`,
-      );
-
-      const response = await res.json();
-      console.log(response);
-    } catch (error) {
-      console.warn(error);
-    }
-  };
-
-  useEffect(() => {
-    getWeather();
-  }, []);
-
+  const { weather, main, name } = item;
   return (
     <LinearGradient
-      colors={['#4c669f', '#3b5998', '#192f6a']}
+      colors={gradients?.[weather[0].main.toLowerCase()] || gradients.default}
+      start={{ x: 0, y: 1 }}
+      end={{ y: 0, x: 1 }}
       style={{
         width: '90%',
         alignSelf: 'center',
         borderRadius: 18,
       }}>
-      <StyledContainer onPress={onPress}>
+      <StyledView onPress={onPress}>
         <StyledCol>
           <Text fontSize={'26px'} bold>
-            {item.cityName}
+            {name}
           </Text>
-          <Text fontSize={'14px'}>{item.currentDate}</Text>
-          <Text fontSize={'10px'}>{item.currentTime}</Text>
+          <Text fontSize={'14px'}>{dayjs().format('dddd DD, MMMM')}</Text>
+          <Text fontSize={'10px'}>{dayjs().format('H.mm a')}</Text>
         </StyledCol>
         <StyledCol>
-          <WeatherIcon />
+          <WeatherIcon icon={weather[0].icon} />
         </StyledCol>
         <StyledCol>
           <Text fontSize={'42px'} bold center>
-            22°
+            {Math.round(main.temp)}°
           </Text>
         </StyledCol>
-      </StyledContainer>
+      </StyledView>
     </LinearGradient>
   );
 };
