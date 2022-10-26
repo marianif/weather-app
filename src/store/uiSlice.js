@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { colors, gradients } from '../theme';
+import { gradients } from '../theme';
 
 export const uiSlice = createSlice({
   name: 'ui',
@@ -13,6 +13,6 @@ export const uiSlice = createSlice({
   },
 });
 
-export const { setDetailsTheme } = uiSlice.actions;
+export const { setDetailsTheme, setScreenRatio } = uiSlice.actions;
 
 export default uiSlice.reducer;

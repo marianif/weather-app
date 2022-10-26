@@ -1,15 +1,15 @@
 import { Dimensions } from 'react-native';
 import styled from 'styled-components/native';
 import { Text, WeatherIcon } from '../../atoms';
-import { gradients } from '../../../theme';
-import { View, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { useSelector } from 'react-redux';
+import dayjs from 'dayjs';
 
 const { width } = Dimensions.get('window');
 
 const StyledView = styled.View`
   width: ${width * 0.36}px;
-  height: 95%;
+  height: 100%;
   margin-right: 10px;
   border-radius: 20px;
   padding-top: 15px;
@@ -18,16 +18,17 @@ const StyledView = styled.View`
 `;
 
 const VCard = ({ item }) => {
-  const { detailsCardBg } = useSelector(state => state.ui);
+  const { detailsBg } = useSelector((state) => state.ui);
+
   return (
-    <StyledView style={styles.shadow} background={detailsCardBg}>
-      <Text center bold fontSize={'22px'}>
-        {item.day}
+    <StyledView style={styles.shadow} background={detailsBg[2]}>
+      <Text center bold fontSize={22}>
+        {dayjs(item.dt * 1000).format('dddd')}
       </Text>
-      <Text center bold fontSize={'36px'}>
-        {item.temp}
+      <Text center bold fontSize={30}>
+        {Math.round(item.temp.day)}°
       </Text>
-      <WeatherIcon />
+      <WeatherIcon icon={item.weather[0].icon} />
     </StyledView>
   );
 };

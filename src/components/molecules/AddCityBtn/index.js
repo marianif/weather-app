@@ -24,7 +24,7 @@ const AddCityBtn = () => {
         color={colors.primary}
         style={{ marginRight: 12 }}
       />
-      <Text primary bold fontSize={'20px'}>
+      <Text primary bold fontSize={20}>
         Aggiungi città
       </Text>
     </StyledButton>

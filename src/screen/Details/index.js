@@ -10,12 +10,21 @@ import {
 import { useHeaderHeight } from '@react-navigation/elements';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { useSelector } from 'react-redux';
+import dayjs from 'dayjs';
+var utc = require('dayjs/plugin/utc');
+var timezone = require('dayjs/plugin/timezone'); // dependent on utc plugin
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
-const Details = () => {
+const Details = ({ route: { params } }) => {
   const { detailsBg } = useSelector((state) => state.ui);
-  const { currentCity } = useSelector((state) => state.forecasts);
+  const { currentWeatherList } = useSelector((state) => state.forecasts);
   const headerHeight = useHeaderHeight();
   const tabBarHeight = useBottomTabBarHeight();
+
+  const currentCity = currentWeatherList.find(
+    (item) => item.name === params.city,
+  );
 
   return (
     <LinearGradient
@@ -28,8 +37,11 @@ const Details = () => {
         paddingBottom: tabBarHeight,
       }}>
       <CurrentWeatherDetail currentCity={currentCity} />
-      <HourlyForecastTimeline />
-      <DailyForecastCarousel />
+      <HourlyForecastTimeline
+        timeline={currentCity.hourly.slice(0, 12)}
+        timezone={currentCity.timezone}
+      />
+      <DailyForecastCarousel items={currentCity.daily.slice(1)} />
     </LinearGradient>
   );
 };

@@ -1,4 +1,4 @@
-import { View, Image } from 'react-native';
+import { Image } from 'react-native';
 import React from 'react';
 import styled from 'styled-components/native';
 import { WEATHER_ICON_BASE_URL } from '@env';

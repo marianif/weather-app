@@ -1,9 +1,8 @@
-import { View, Text } from 'react-native';
 import styled from 'styled-components/native';
 import { colors } from '../../../theme';
 import { TabIcon } from '../../atoms';
 
-const StyledContainer = styled.View`
+const StyledView = styled.View`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -21,9 +20,9 @@ const StyledContainer = styled.View`
 
 const TabBarIcon = ({ focused, name }) => {
   return (
-    <StyledContainer focused={focused}>
+    <StyledView focused={focused}>
       <TabIcon name={name} focused={focused} />
-    </StyledContainer>
+    </StyledView>
   );
 };
 

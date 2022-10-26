@@ -1,7 +1,5 @@
-import { SafeAreaView, View } from 'react-native';
-import { Text } from '../../components/atoms';
+import { View } from 'react-native';
 import { CurrentWeatherList } from '../../components/organism';
-import dayjs from 'dayjs';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { fetchCitiesForecast } from '../../store/forecastSlice';
@@ -16,9 +14,9 @@ const Home = () => {
   }, []);
 
   return (
-    <SafeAreaView>
+    <View>
       <CurrentWeatherList items={currentWeatherList} />
-    </SafeAreaView>
+    </View>
   );
 };
 

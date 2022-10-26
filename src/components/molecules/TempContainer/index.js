@@ -3,13 +3,13 @@ import React from 'react';
 import styled from 'styled-components/native';
 import { WeatherIcon, Text } from '../../atoms';
 
-const StyledContainer = styled.View`
+const StyledView = styled.View`
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
   width: 100%;
-  aspect-ratio: 2;
+  padding: 0 5% 5% 5%;
 `;
 
 const StyledCol = styled.View`
@@ -20,16 +20,16 @@ const StyledCol = styled.View`
 
 const TempContainer = ({ temp, icon }) => {
   return (
-    <StyledContainer>
+    <StyledView>
       <StyledCol>
         <WeatherIcon icon={icon} />
       </StyledCol>
       <StyledCol>
-        <Text fontSize={'95px'} bold center>
+        <Text fontSize={95} bold center>
           {Math.round(temp)}°
         </Text>
       </StyledCol>
-    </StyledContainer>
+    </StyledView>
   );
 };
 

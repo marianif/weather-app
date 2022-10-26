@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { fetchCurrentWeather, fetchForecasts } from '../helpers/forecasts';
+import { fetchCurrentWeather } from '../helpers/forecasts';
 import { geocode } from '../helpers/geocode';
 
 export const fetchCitiesForecast = createAsyncThunk(
@@ -13,7 +13,7 @@ export const fetchCitiesForecast = createAsyncThunk(
       cities.map(async (city) => {
         const coords = await geocode(city);
         const weather = await fetchCurrentWeather(coords);
-        return weather;
+        return { ...weather, name: city };
       }),
     );
 
@@ -21,23 +21,16 @@ export const fetchCitiesForecast = createAsyncThunk(
   },
 );
 
-export const fetchCurrentCityForecast = createAsyncThunk(
-  'users/fetchCurrentCityForecast',
-  async (city) => {
-    const coords = await geocode(city);
-    const forecast = await fetchForecasts(coords);
-
-    console.log(forecast);
-    return forecast;
-  },
-);
-
 export const forecastSlice = createSlice({
   name: 'forecasts',
   initialState: {
-    cities: ['Turin', 'London', 'Rome'],
+    cities: ['Turin', 'London', 'Rome', 'Madrid', 'Boston'],
     currentWeatherList: [],
     currentCity: {},
+    currentCityForecast: {
+      hourly: [],
+      daily: [],
+    },
     fetchStatus: 'pending',
   },
   reducers: {
