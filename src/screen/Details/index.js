@@ -39,7 +39,7 @@ const Details = ({ route: { params } }) => {
       <CurrentWeatherDetail currentCity={currentCity} />
       <HourlyForecastTimeline
         timeline={currentCity.hourly.slice(0, 12)}
-        timezone={currentCity.timezone}
+        tzOffset={currentCity.timezone_offset}
       />
       <DailyForecastCarousel items={currentCity.daily.slice(1)} />
     </LinearGradient>

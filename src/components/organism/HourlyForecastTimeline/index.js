@@ -3,7 +3,7 @@ import React from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 import { HourlyTimelineItem } from '../../molecules';
 
-const HourlyForecastTimeline = ({ timeline, timezone }) => {
+const HourlyForecastTimeline = ({ timeline, tzOffset }) => {
   return (
     <View style={{ height: '20%' }}>
       <ScrollView
@@ -21,7 +21,7 @@ const HourlyForecastTimeline = ({ timeline, timezone }) => {
             key={index}
             item={item}
             isNow={index === 0}
-            timezone={timezone}
+            tzOffset={tzOffset}
           />
         ))}
       </ScrollView>

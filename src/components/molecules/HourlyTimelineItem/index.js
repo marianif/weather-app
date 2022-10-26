@@ -1,16 +1,11 @@
 import styled from 'styled-components/native';
 import { Text } from '../../atoms';
+import { useEffect } from 'react';
 // dayjs imports
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
-import timezone from 'dayjs/plugin/timezone';
-import dayjsRelativeTime from 'dayjs/plugin/relativeTime';
-import advancedFormat from 'dayjs/plugin/advancedFormat';
 // dayjs config
 dayjs.extend(utc);
-dayjs.extend(timezone);
-dayjs.extend(dayjsRelativeTime);
-dayjs.extend(advancedFormat);
 const StyledView = styled.View`
   height: 100%;
   width: 60px;
@@ -28,14 +23,13 @@ const Circle = styled.View`
   aspect-ratio: 1;
 `;
 
-const HourlyTimelineItem = ({ item, isNow, timezone }) => {
-  dayjs.tz.setDefault(timezone);
+const HourlyTimelineItem = ({ item, isNow, tzOffset }) => {
   return (
     <StyledView>
       <Text bold={isNow} fontSize={isNow ? 20 : 14}>
         {!isNow
           ? dayjs(item.dt * 1000)
-              .tz()
+              .utcOffset(tzOffset / 60)
               .format('h a')
           : 'Now'}
       </Text>

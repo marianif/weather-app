@@ -1,21 +1,15 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 import styled from 'styled-components/native';
 import { Text, WeatherIcon } from '../../atoms';
 import { gradients } from '../../../theme';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 // dayjs imports
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
-import timezone from 'dayjs/plugin/timezone';
-import dayjsRelativeTime from 'dayjs/plugin/relativeTime';
-import advancedFormat from 'dayjs/plugin/advancedFormat';
 // dayjs config
 dayjs.extend(utc);
-dayjs.extend(timezone);
-dayjs.extend(dayjsRelativeTime);
-dayjs.extend(advancedFormat);
 
 const StyledView = styled.Pressable`
   display: flex;
@@ -38,10 +32,9 @@ const HCard = ({ item, onPress }) => {
   const {
     current: { weather, temp },
     name,
-    timezone,
+    timezone_offset,
   } = item;
 
-  dayjs.tz.setDefault(timezone);
   return (
     <LinearGradient
       colors={gradients?.[weather[0].main.toLowerCase()] || gradients.default}
@@ -53,9 +46,16 @@ const HCard = ({ item, onPress }) => {
           <Text fontSize={26} bold>
             {name}
           </Text>
-          <Text fontSize={14}>{dayjs().tz().format('dddd DD, MMMM')}</Text>
-
-          <Text fontSize={10}>{dayjs().tz().format('h.mm a')}</Text>
+          <Text fontSize={14}>
+            {dayjs()
+              .utcOffset(timezone_offset / 60)
+              .format('dddd DD, MMMM')}
+          </Text>
+          <Text fontSize={12}>
+            {dayjs()
+              .utcOffset(timezone_offset / 60)
+              .format('h.mm a')}
+          </Text>
         </StyledCol>
         <StyledCol>
           <WeatherIcon icon={weather[0].icon} />

@@ -3,6 +3,7 @@ import { CurrentWeatherList } from '../../components/organism';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { fetchCitiesForecast } from '../../store/forecastSlice';
+import { useState } from 'react';
 
 const Home = () => {
   const dispatch = useDispatch();

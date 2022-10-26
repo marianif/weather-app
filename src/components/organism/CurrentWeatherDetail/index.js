@@ -4,7 +4,7 @@ import { TempContainer, DateAndWeather } from '../../molecules';
 
 const CurrentWeatherDetail = ({ currentCity }) => {
   const { weather, temp } = currentCity.current;
-  const { timezone } = currentCity;
+  const { timezone_offset } = currentCity;
 
   return (
     <View
@@ -13,7 +13,7 @@ const CurrentWeatherDetail = ({ currentCity }) => {
         alignItems: 'center',
         justifyContent: 'space-between',
       }}>
-      <DateAndWeather weather={weather[0]} timezone={timezone} />
+      <DateAndWeather weather={weather[0]} tzOffset={timezone_offset} />
       <TempContainer temp={temp} icon={weather[0].icon} />
     </View>
   );
